@@ -1,0 +1,83 @@
+import COLORS from "../styles/colors";
+
+export const mockVendors = [
+  {
+    id: 1,
+    name: "Maria's Kitchen",
+    type: "Home Cook",
+    distance: "0.3 mi",
+    rating: 4.9,
+    meals: ["Rice & Beans", "Chicken Soup", "Fresh Fruit"],
+    days: ["Sat", "Sun"],
+    times: "11am – 3pm",
+    slots: 8,
+    booked: 3,
+    tags: ["Free", "Hot Meals"],
+    color: COLORS.orange,
+    emoji: "🍲",
+    address: "123 Maple St",
+  },
+  {
+    id: 2,
+    name: "Community Bites",
+    type: "Nonprofit",
+    distance: "0.7 mi",
+    rating: 4.8,
+    meals: ["Sandwiches", "Salad", "Juice Box", "Granola Bar"],
+    days: ["Sat"],
+    times: "9am – 1pm",
+    slots: 20,
+    booked: 11,
+    tags: ["Free", "Grab & Go"],
+    color: COLORS.green,
+    emoji: "🥪",
+    address: "45 Oak Ave",
+  },
+  {
+    id: 3,
+    name: "Sunny Side Up",
+    type: "Food Truck",
+    distance: "1.1 mi",
+    rating: 4.7,
+    meals: ["Breakfast Burritos", "Oatmeal", "Orange Juice"],
+    days: ["Sun"],
+    times: "8am – 12pm",
+    slots: 15,
+    booked: 7,
+    tags: ["$2 Max", "Breakfast"],
+    color: COLORS.yellow,
+    emoji: "🌮",
+    address: "Food Truck Row, Park Blvd",
+  },
+  {
+    id: 4,
+    name: "Green Garden Co.",
+    type: "Local Restaurant",
+    distance: "1.4 mi",
+    rating: 4.6,
+    meals: ["Veggie Plates", "Fresh Smoothies", "Whole Grain Wrap"],
+    days: ["Sat", "Sun"],
+    times: "12pm – 5pm",
+    slots: 10,
+    booked: 2,
+    tags: ["Free", "Vegan"],
+    color: COLORS.purple,
+    emoji: "🥗",
+    address: "789 Garden Lane",
+  },
+];
+
+export const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+export const calendarData = {
+  Sat: [
+    { vendor: "Maria's Kitchen", time: "11am–3pm", color: COLORS.orange, emoji: "🍲" },
+    { vendor: "Community Bites", time: "9am–1pm", color: COLORS.green, emoji: "🥪" },
+    { vendor: "Green Garden Co.", time: "12pm–5pm", color: COLORS.purple, emoji: "🥗" },
+  ],
+  Sun: [
+    { vendor: "Maria's Kitchen", time: "11am–3pm", color: COLORS.orange, emoji: "🍲" },
+    { vendor: "Sunny Side Up", time: "8am–12pm", color: COLORS.yellow, emoji: "🌮" },
+    { vendor: "Green Garden Co.", time: "12pm–5pm", color: COLORS.purple, emoji: "🥗" },
+  ],
+};
