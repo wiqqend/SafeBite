@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="loginScreen" class="screen active login-screen">
+  <div class="login-logo">Safe<span>Bite</span></div>
+  <div class="login-tagline">Your private food toolkit</div>
+  <div class="login-form">
+    <div class="input-wrap">
+      <input type="text" id="schoolId" placeholder="School ID (e.g. STU-20485)" maxlength="12">
+    </div>
+    <div class="input-wrap">
+      <input type="password" id="pin" placeholder="4-digit PIN" maxlength="4">
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Access My Toolkit</button>
+  </div>
+  <div class="login-privacy">🔒 Your information is private and encrypted.<br>No one at school can see your activity.</div>
+</div>
+
+<div id="mainApp" class="screen">
+
+  <div id="walletScreen" class="screen active scrollable" style="height:100%">
+    <div class="app-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="pill-badge pill-green">● Stealth Wallet</div>
+        <span style="font-size:20px;cursor:pointer" onclick="showToast('👋 Logged out');setTimeout(()=>{switchToLogin()},1000)">👤</span>
+      </div>
+      <h1 class="section-title">Your Food Credits</h1>
+      <p class="section-desc">Displayed as standard digital coupons — 100% private.</p>
+    </div>
+
+    <div class="wallet-hero">
+      <div class="wallet-chip">Verified Student</div>
+      <div class="wallet-label">Available Balance</div>
+      <div class="wallet-amount"><span>$</span>47.50</div>
+      <div class="wallet-sub">Resets every Monday · Next: 3 days</div>
+    </div>
+
+    <div class="wallet-actions">
+      <button class="wallet-action-btn" onclick="showToast('📱 QR code shown at checkout')">📱 Show QR</button>
+      <button class="wallet-action-btn" onclick="showToast('📋 History copied privately')">📋 History</button>
+      <button class="wallet-action-btn" onclick="showToast('⚙️ Settings opened')">⚙️ Settings</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--green)">12</div>
+        <div class="stat-label">Meals Used</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--orange)">5</div>
+        <div class="stat-label">This Week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--gold)">3</div>
+        <div class="stat-label">Coupons</div>
+      </div>
+    </div>
+
+    <div style="padding:0 20px;margin-bottom:14px">
+      <div class="section-title" style="font-size:18px">Active Coupons</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">These are your masked food credits</div>
+    </div>
+
+    <div class="coupon-list">
+      <div class="coupon-card" onclick="showBarcode('Chipotle','Burrito Bowl','$12','Fri','🌯','#f4e4c2','SB-4821-CHI-0934')">
+        <div class="coupon-logo" style="background:#f4e4c2">🌯</div>
+        <div class="coupon-info">
+          <div class="coupon-name">Chipotle</div>
+          <div class="coupon-desc">Burrito Bowl · Expires Fri</div>
+        </div>
+        <div class="coupon-value">$12</div>
+        <div class="coupon-dashes"></div>
+      </div>
+      <div class="coupon-card" onclick="showBarcode('Subway','6&quot; Sub + Drink','$9','Sun','🥪','#e8f5e9','SB-7743-SUB-2201')">
+        <div class="coupon-logo" style="background:#e8f5e9">🥪</div>
+        <div class="coupon-info">
+          <div class="coupon-name">Subway</div>
+          <div class="coupon-desc">6" Sub + Drink · Expires Sun</div>
+        </div>
+        <div class="coupon-value">$9</div>
+        <div class="coupon-dashes"></div>
+      </div>
+      <div class="coupon-card" onclick="showBarcode('Panera Bread','Soup + Half Sandwich','$14','Mon','🍞','#fff3e0','SB-3390-PAN-5517')">
+        <div class="coupon-logo" style="background:#fff3e0">🍞</div>
+        <div class="coupon-info">
+          <div class="coupon-name">Panera Bread</div>
+          <div class="coupon-desc">Soup + Half Sandwich · Expires Mon</div>
+        </div>
+        <div class="coupon-value">$14</div>
+        <div class="coupon-dashes"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ledgerScreen" class="screen scrollable" style="height:100%">
+    <div class="app-header">
+      <div class="pill-badge pill-orange" style="margin-bottom:8px">● Community Ledger</div>
+      <h1 class="section-title">Nearby Pre-Paid Meals</h1>
+      <p class="section-desc">Local restaurants have donated meals. Claim yours quietly — no cash needed.</p>
+    </div>
+
+    <div class="ledger-map">
+      <div class="map-grid"></div>
+      <div class="map-pins">
+        <div class="map-pin" style="top:30px;left:40px" onclick="showToast('📍 The Green Bowl — 0.3 mi')">
+          <div class="pin-dot"></div>
+          <div class="pin-label">The Green Bowl</div>
+        </div>
+        <div class="map-pin" style="top:60px;left:130px" onclick="showToast('📍 Taco Town — 0.6 mi')">
+          <div class="pin-dot"></div>
+          <div class="pin-label">Taco Town</div>
+        </div>
+        <div class="map-pin" style="top:25px;right:50px" onclick="showToast('📍 Noodle Nook — 0.9 mi')">
+          <div class="pin-dot"></div>
+          <div class="pin-label">Noodle Nook</div>
+        </div>
+        <div class="map-pin" style="bottom:35px;left:70px" onclick="showToast('📍 Pita Palace — 1.1 mi')">
+          <div class="pin-dot"></div>
+          <div class="pin-label">Pita Palace</div>
+        </div>
+      </div>
+      <div class="map-you">You</div>
+    </div>
+
+    <div class="meal-cards">
+      <div class="meal-card">
+        <div class="meal-card-top">
+          <div class="meal-emoji" style="background:#e8f5e9">🥗</div>
+          <div class="meal-info">
+            <div class="meal-name">Grain Bowl — The Green Bowl</div>
+            <div class="meal-place">📍 0.3 mi · Open now · Closes 8 PM</div>
+          </div>
+        </div>
+        <div class="meal-card-bottom">
+          <div class="meal-slots">4 meals left today</div>
+          <button class="meal-claim-btn" onclick="claimMeal(this,'The Green Bowl')">Claim</button>
+        </div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-card-top">
+          <div class="meal-emoji" style="background:#fff8e1">🌮</div>
+          <div class="meal-info">
+            <div class="meal-name">Taco Plate — Taco Town</div>
+            <div class="meal-place">📍 0.6 mi · Open now · Closes 9 PM</div>
+          </div>
+        </div>
+        <div class="meal-card-bottom">
+          <div class="meal-slots">7 meals left today</div>
+          <button class="meal-claim-btn" onclick="claimMeal(this,'Taco Town')">Claim</button>
+        </div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-card-top">
+          <div class="meal-emoji" style="background:#fce4ec">🍜</div>
+          <div class="meal-info">
+            <div class="meal-name">Ramen Bowl — Noodle Nook</div>
+            <div class="meal-place">📍 0.9 mi · Open now · Closes 10 PM</div>
+          </div>
+        </div>
+        <div class="meal-card-bottom">
+          <div class="meal-slots">2 meals left today</div>
+          <button class="meal-claim-btn" onclick="claimMeal(this,'Noodle Nook')">Claim</button>
+        </div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-card-top">
+          <div class="meal-emoji" style="background:#ede7f6">🥙</div>
+          <div class="meal-info">
+            <div class="meal-name">Pita Wrap — Pita Palace</div>
+            <div class="meal-place">📍 1.1 mi · Closes 7:30 PM</div>
+          </div>
+        </div>
+        <div class="meal-card-bottom">
+          <div class="meal-slots">1 meal left today</div>
+          <button class="meal-claim-btn" onclick="claimMeal(this,'Pita Palace')">Claim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pantryScreen" class="screen scrollable" style="height:100%">
+    <div class="app-header">
+      <div class="pill-badge pill-gold" style="margin-bottom:8px">● AI Pantry Remix</div>
+      <h1 class="section-title">What's in your kitchen?</h1>
+      <p class="section-desc">Add ingredients you have at home. Our AI builds nutritious no-cook meals just for you.</p>
+    </div>
+
+    <div class="pantry-input-zone">
+      <div class="pantry-input-label">Your Ingredients</div>
+      <div class="pantry-tags" id="pantryTags"></div>
+      <div class="pantry-input-row">
+        <input class="pantry-text-input" id="ingredientInput" placeholder="e.g. peanut butter, banana…" onkeydown="if(event.key==='Enter')addIngredient()">
+        <button class="pantry-add-btn" onclick="addIngredient()">+ Add</button>
+      </div>
+    </div>
+
+    <div style="padding:0 20px;margin-bottom:14px">
+      <div style="font-size:12px;color:var(--text-muted);font-weight:500">Quick add:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px" id="quickAdds"></div>
+    </div>
+
+    <button class="btn-remix" id="remixBtn" onclick="generateRecipes()" disabled>
+      <span>✨</span> Remix My Pantry
+    </button>
+
+    <div class="recipe-output" id="recipeOutput"></div>
+  </div>
+
+  <div class="nav-bar" id="navBar">
+    <div class="nav-item active" onclick="switchTab('wallet',this)">
+      <div class="nav-icon">💳</div>
+      <div class="nav-label">Wallet</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('ledger',this)">
+      <div class="nav-icon">🗺️</div>
+      <div class="nav-label">Ledger</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('pantry',this)">
+      <div class="nav-icon">✨</div>
+      <div class="nav-label">Pantry AI</div>
+    </div>
+  </div>
+</div>
+
+<div id="barcodeModal" class="barcode-modal" onclick="closeBarcode()">
+  <div class="barcode-sheet" onclick="event.stopPropagation()">
+    <div class="barcode-sheet-handle"></div>
+    <div class="barcode-header">
+      <div class="barcode-emoji" id="barcodeEmoji"></div>
+      <div class="barcode-meta">
+        <div class="barcode-place" id="barcodePlace"></div>
+        <div class="barcode-item" id="barcodeItem"></div>
+      </div>
+      <div class="barcode-val" id="barcodeVal"></div>
+    </div>
+    <div class="barcode-divider">
+      <div class="barcode-hole left"></div>
+      <div class="barcode-dashes"></div>
+      <div class="barcode-hole right"></div>
+    </div>
+    <div class="barcode-body">
+      <div class="barcode-label">Present at register to redeem</div>
+      <div class="barcode-svg-wrap">
+        <svg id="barcodeSvg" height="80" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="barcode-code" id="barcodeCode"></div>
+    </div>
+    <div class="barcode-footer">
+      <div class="barcode-expires">Expires: <span id="barcodeExpires"></span></div>
+      <div class="barcode-privacy">🔒 Masked — visible only to you</div>
+    </div>
+    <button class="barcode-close" onclick="closeBarcode()">Done</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
